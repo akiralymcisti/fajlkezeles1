@@ -28,6 +28,30 @@ router.get('/', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/index.html'));
 });
 
+router.get('/elsoFeladat1', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/elsoFeladat1.html'));
+});
+
+router.get('/elsoFeladat2', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/elsoFeladat2.html'));
+});
+
+// 2. Feladat
+const fsSync = require('fs');
+const writeFileSync = () => {
+    let numbers = [];
+    for (let i = 0; i < 20; i++)
+    {
+        numbers.push(Math.floor(Math.random() * (50 - 1 + 1)) + 1);
+    }
+    fsSync.writeFileSync(
+        path.join(__dirname, '../backend/files/szamok.txt'),
+        numbers.join(','),
+        'utf8'
+    );
+};
+writeFileSync();
+
 //!API endpoints
 app.use('/', router);
 const endpoints = require('./api/api.js');
@@ -38,6 +62,7 @@ app.use(express.static(path.join(__dirname, '../frontend'))); //?frontend mappa 
 app.listen(port, ip, () => {
     console.log(`Szerver elérhetősége: http://${ip}:${port}`);
 });
+
 
 //?Szerver futtatása terminalból: npm run dev
 //?Szerver leállítása (MacBook és Windows): Control + C

@@ -41,4 +41,59 @@ router.get('/testsql', async (request, response) => {
     }
 });
 
+// 1. Feladat
+const readTextFile = async (filePath) => {
+    try {
+      const text = await fs.readFile(filePath, 'utf8');
+      return text; // string
+    } catch (error) {
+      throw new Error(`Olvasási hiba (text): ${error.message}`);
+    }
+  };
+
+  router.get('/readfile', async (request, response) => {
+    try {
+      const content = await readTextFile(path.join(__dirname, ('../files/adatok.txt')));
+      response.status(200).json({ content: content });
+    } catch (error) {
+      console.log('GET /api/read-text error:', error);
+      response.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  //2. Feladat
+  router.get('/beolvasas', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, ('../files/szamok.txt')));
+        response.status(200).json({ content: content });
+      } catch (error) {
+        console.log('GET /api/read-text error:', error);
+        response.status(500).json({ error: 'Internal server error' });
+      }
+  })
+
+  router.get('/osszeg', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'));
+
+        let numbers = content.split(',');
+        let osszeg = 0;
+        for (const item of numbers) {
+            osszeg += parseInt(item);
+        }
+
+        response.status(200).json({
+            result: osszeg
+        });
+    }
+    catch (error) {
+        console.log('GET /api/readFile error:', error);
+        response.status(500).json({
+            error: 'Szerver hiba'
+        });
+    }
+  })
+  
+  
+
 module.exports = router;
