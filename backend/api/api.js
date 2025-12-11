@@ -93,6 +93,64 @@ const readTextFile = async (filePath) => {
         });
     }
   })
+
+    router.get('/atlag', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'));
+        let numbers = content.split(',');
+        let osszeg = 0;
+        for (const item of numbers) {
+            osszeg += parseInt(item);
+        }
+        let atlag = osszeg / numbers.length;
+        response.status(200).json({
+            result: atlag
+        });
+    }
+    catch (error) {
+        console.log('GET /api/readFile error:', error);
+        response.status(500).json({
+            error: 'Szerver hiba'
+        });
+      }
+    });
+
+    router.get('/min', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'));  
+        let numbers = content.split(',');
+        let min = Math.min(...numbers.map(Number));
+        response.status(200).json({
+            result: min
+        });
+    } catch (error) {
+        console.log('GET /api/readFile error:', error);
+        response.status(500).json({
+            error: 'Szerver hiba'
+        });
+      }
+    });
+
+    router.get('/max', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'));
+        let numbers = content.split(',');
+        let max = Math.max(...numbers.map(Number));
+        response.status(200).json({
+            result: max
+        });
+    } catch (error) {
+        console.log('GET /api/readFile error:', error);
+        response.status(500).json({
+            error: 'Szerver hiba'
+        });
+      } 
+    });
+
+  // 3. Feladat
+    
+
+    
   
   
 

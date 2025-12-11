@@ -36,6 +36,10 @@ router.get('/elsoFeladat2', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/elsoFeladat2.html'));
 });
 
+router.get('/elsoFeladat3', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/elsoFeladat3.html'));
+});
+
 // 2. Feladat
 const fsSync = require('fs');
 const writeFileSync = () => {
