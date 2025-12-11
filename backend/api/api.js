@@ -148,7 +148,37 @@ const readTextFile = async (filePath) => {
     });
 
   // 3. Feladat
-    
+  router.get('/getallstat', async (request, response) => {
+    try {
+      const content = await readTextFile(path.join(__dirname, '../files/statisztika.json'));
+      response.status(200).json({
+        result: JSON.parse(content)
+      });
+    }
+    catch (error)
+    {
+      console.log('GET /api/getallstat error: ', error);
+      response.status(500).json({
+        error: 'Szerver hiba'
+      });
+    }
+  });
+
+
+  router.get('/getallstat/:telepaz', async (request, response) => {
+    try {
+      
+    }
+    catch (error)
+    {
+      console.log('GET /api/getallstat/:telepaz error: ', error);
+      response.status(500).json({
+        error: 'Szerver hiba'
+      });
+    }
+  })
+
+  
 
     
   
